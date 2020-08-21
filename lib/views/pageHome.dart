@@ -3,6 +3,7 @@ import 'package:eas/utils/color.dart';
 import 'package:flutter/material.dart';
 
 import 'PagePresence.dart';
+import 'pageServiceOrder.dart';
 
 class PageHome extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _PageHomeState extends State<PageHome> {
               child: PagePresence()
             ),
             Container(
-              color: Colors.red,
+              child: PageServiceOrder(),
             ),
           ],
         ),

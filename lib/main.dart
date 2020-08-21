@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
 //        statusBarBrightness: Brightness.dark,
-        systemNavigationBarColor: mainColor,
-        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.grey.shade200,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
 
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       title: 'Electrolux Authorized Service (EAS)',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: PageSplashScreen(),
