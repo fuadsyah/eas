@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-08-25T11:05:30.337Z" agent="5.0 (Windows)" etag="0uBDTp85OvF-RUQNuU1V" version="13.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2020-08-25T11:15:46.537Z" agent="5.0 (Windows)" etag="LrbwLGtyCEWz8AlwgLUJ" version="13.6.5" type="github">
   <diagram name="Page-1" id="c7488fd3-1785-93aa-aadb-54a6760d102a">
-    <mxGraphModel dx="1730" dy="902" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="1483" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -159,17 +159,40 @@
         <mxCell id="gk5qheD9YPSoJ3GrY8hP-268" value="View Serviceman Location" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="1040" y="820" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="gk5qheD9YPSoJ3GrY8hP-273" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gk5qheD9YPSoJ3GrY8hP-270" target="gk5qheD9YPSoJ3GrY8hP-272">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-278" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="gk5qheD9YPSoJ3GrY8hP-270" target="gk5qheD9YPSoJ3GrY8hP-285">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1270" y="450" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="gk5qheD9YPSoJ3GrY8hP-270" value="Confirm Arrival" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="1210" y="332.5" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="gk5qheD9YPSoJ3GrY8hP-272" value="Start Service Activity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="1210" y="440" width="120" height="60" as="geometry" />
-        </mxCell>
         <mxCell id="gk5qheD9YPSoJ3GrY8hP-275" value="ReSchedule" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e3c800;strokeColor=#B09500;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="715" y="440" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-285" value="Start Activity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-287" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="420" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-290" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="gk5qheD9YPSoJ3GrY8hP-288" target="gk5qheD9YPSoJ3GrY8hP-289">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-288" value="Calculate total fee" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="392.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-292" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="gk5qheD9YPSoJ3GrY8hP-289" target="gk5qheD9YPSoJ3GrY8hP-291">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-289" value="&lt;div&gt;Sparepart /&lt;/div&gt;&lt;div&gt; Services fee&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="392.5" width="135" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-291" value="View total fee estimate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="392.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gk5qheD9YPSoJ3GrY8hP-293" value="&lt;div&gt; Services Activity&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1365" y="490" width="135" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
