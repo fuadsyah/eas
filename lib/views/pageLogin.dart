@@ -22,17 +22,13 @@ class _PageLoginState extends State<PageLogin>{
   }
 
   Widget _body() {
-    return SingleChildScrollView(
-      physics: ClampingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      child: Stack(
-        children: [
-          _background(),
-          _backgroundOverlay(),
-          _title(),
-          _loginForm(),
-        ],
-      ),
+    return Stack(
+      children: [
+        _background(),
+        _backgroundOverlay(),
+        _title(),
+        _loginForm(),
+      ],
     );
   }
 
@@ -95,8 +91,9 @@ class _PageLoginState extends State<PageLogin>{
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               ),
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,9 +150,11 @@ class _PageLoginState extends State<PageLogin>{
                         color: mainColor,
                         borderRadius: BorderRadius.circular(180),
                       ),
-                      child: Text(
-                        'Masuk',
-                        style: TextStyle(color: Colors.white, fontFamily: 'elux', fontSize: 16),
+                      child: Center(
+                        child: Text(
+                          'Masuk',
+                          style: TextStyle(color: Colors.white, fontFamily: 'elux', fontSize: 16),
+                        ),
                       ),
                     ),
                   ),

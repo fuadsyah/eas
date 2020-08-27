@@ -180,10 +180,12 @@ class _PageOnSpotState extends State<PageOnSpot> {
   Future openCamera() async {
     var imageFile = await ImagePicker().getImage(source: ImageSource.camera);
 
-    await compressImage(File(imageFile.path)).then((image) {
-      setState(() {
-        attachment = image;
+    if(imageFile!=null){
+      await compressImage(File(imageFile.path)).then((image) {
+        setState(() {
+          attachment = image;
+        });
       });
-    });
+    }
   }
 }

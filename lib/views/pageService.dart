@@ -4,7 +4,7 @@ import 'package:eas/views/pageHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:move_to_background/move_to_background.dart';
 import 'pageCalculateCost.dart';
 
 class PageService extends StatefulWidget {
@@ -24,11 +24,17 @@ class _PageServiceState extends State<PageService> {
   }
 
   Widget _body() {
-    return Stack(
-      children: [
-        _header(),
-        _serviceForm(),
-      ],
+    return WillPopScope(
+      onWillPop: ()async {
+        MoveToBackground.moveTaskToBack();
+        return false;
+      },
+      child: Stack(
+        children: [
+          _header(),
+          _serviceForm(),
+        ],
+      ),
     );
   }
 
@@ -60,7 +66,7 @@ class _PageServiceState extends State<PageService> {
                   ),
                 ),
                 GestureDetector(
-                    onTap: () => navigate(context, PageCalculateCost()), child: Icon(Icons.table_chart, color: Colors.white)),
+                    onTap: () => navigate(context, PageCalculateCost()), child: Image.asset('assets/customIcon/calculator.png', color: Colors.white,)),
               ],
             ),
           ),
@@ -85,53 +91,58 @@ class _PageServiceState extends State<PageService> {
               physics: BouncingScrollPhysics(),
               children: [
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: mainColor)),
-                      labelText: 'Dropdown',
+                      labelText: 'Dropdown Item',
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: mainColor)),
-                      labelText: 'Dropdown',
+                      labelText: 'Dropdown Item',
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: mainColor)),
-                      labelText: 'Dropdown',
+                      labelText: 'Dropdown Item',
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: mainColor)),
-                      labelText: 'Dropdown',
+                      labelText: 'Dropdown Item',
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: mainColor)),
-                      labelText: 'Keterangan',
+                      labelText: 'Dropdown Status pengerjaan',
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 GestureDetector(

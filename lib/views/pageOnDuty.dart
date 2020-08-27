@@ -71,8 +71,10 @@ class _PageOnDutyState extends State<PageOnDuty>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: Center(child: Lottie.asset('assets/lottie/otw.json', width: 250))),
-              Text('latitude :'+latitude.toString()),
-              Text('longitude :'+longitude.toString()),
+            Text('Interval waktu pengambilan lokasi per 10detik'),
+            Text('latitude :'+latitude.toString()),
+            Text('longitude :'+longitude.toString()),
+            SizedBox(height: 20),
             ConfirmationSlider(
               shadow: BoxShadow(
                   color: Colors.transparent

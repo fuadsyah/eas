@@ -12,12 +12,12 @@ import 'package:trust_location/trust_location.dart';
 import '../views/PagePresence.dart';
 
 abstract class PresenceController extends State<PagePresence> {
-  String latitude;
-  String longitude;
+  String latitude = '0';
+  String longitude ='0';
   double storeLatitude = -6.261014;
   double storeLongitude = 106.796845;
   String locationFromGeolocator;
-  String distanceToLocation;
+  String distanceToLocation ='0';
 
   var headerHeight;
   var timer;
@@ -55,6 +55,8 @@ abstract class PresenceController extends State<PagePresence> {
                     distanceToLocation = distance;
                   });
                 });
+
+//                print(distanceToLocation);
               }
             }));
   }

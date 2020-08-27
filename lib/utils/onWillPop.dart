@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'color.dart';
@@ -10,8 +11,9 @@ Future<bool> onWillPop() async{
       now.difference(currentBackPressTime) > Duration(seconds: 2)) {
     currentBackPressTime = now;
     Fluttertoast.showToast(
-      backgroundColor: mainColor,
-      msg: "Press again to exit",
+      backgroundColor: Colors.grey.shade200,
+      msg: "Tekan sekali lagi untuk keluar",
+      textColor: mainColor,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       fontSize: 16.0,

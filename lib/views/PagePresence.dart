@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eas/utils/color.dart';
 import 'package:eas/utils/utils.dart';
+import 'package:eas/views/pageLogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../controllers/PresenceController.dart';
@@ -21,10 +24,13 @@ class _PagePresenceState extends PresenceController {
   }
 
   Widget _body() {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [_header(), _presenceForm()],
+    return WillPopScope(
+      onWillPop: ()=> onWillPop(),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [_header(), _presenceForm()],
+        ),
       ),
     );
   }
@@ -57,11 +63,14 @@ class _PagePresenceState extends PresenceController {
                   ),
                 ),
                 SizedBox(width: 30),
-                ClipRRect(
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 50,
+                GestureDetector(
+                  onTap: ()=> _onUserClick(),
+                  child: ClipRRect(
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 50,
+                    ),
                   ),
                 ),
               ],
@@ -284,6 +293,26 @@ class _PagePresenceState extends PresenceController {
               )),
         ),
       ],
+    );
+  }
+
+
+  void _onUserClick() {
+    showCupertinoModalPopup(
+      context: context,
+      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+      builder: (context) {
+        return CupertinoActionSheet(
+          actions: [
+            CupertinoDialogAction(
+              child: Text('Keluar dari akun ini', style: TextStyle(fontFamily: 'elux', color: mainColor)),
+              onPressed: () {
+                replaceRemoveNavigate(context, PageLogin());
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

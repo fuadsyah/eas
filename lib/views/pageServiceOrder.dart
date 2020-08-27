@@ -29,34 +29,35 @@ abstract class ListItem {
 
 /// A ListItem that contains data to display a message.
 class MessageItem implements ListItem {
-  final String customerName;
+  final String reffNumber;
+  final String soDate;
   final String problemType;
   final String productType;
-  final String reffNumber;
+  final String customerName;
 
-  MessageItem(this.customerName, this.problemType, this.productType, this.reffNumber);
+  MessageItem(this.reffNumber, this.soDate, this.problemType, this.productType,  this.customerName);
 
-  Widget buildTitle(BuildContext context) => Text(customerName, style: TextStyle(fontFamily: 'elux'));
+  Widget buildTitle(BuildContext context) => Text(soDate, style: TextStyle(fontFamily: 'elux'));
 
   Widget buildSubtitle(BuildContext context) => Column(
-    children: [
-      Row(
         children: [
-          Expanded(child: Text(problemType, style: TextStyle(fontFamily: 'elux', fontSize: 12))),
+          Row(
+            children: [
+              Expanded(child: Text(problemType, style: TextStyle(fontFamily: 'elux', fontSize: 12))),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text(productType, style: TextStyle(fontFamily: 'elux', fontSize: 12))),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text(reffNumber, style: TextStyle(fontFamily: 'elux', fontSize: 10))),
+            ],
+          ),
         ],
-      ),
-      Row(
-        children: [
-          Expanded(child: Text(productType, style: TextStyle(fontFamily: 'elux', fontSize: 12))),
-        ],
-      ),
-      Row(
-        children: [
-          Expanded(child: Text(reffNumber, style: TextStyle(fontFamily: 'elux', fontSize: 10))),
-        ],
-      ),
-    ],
-  );
+      );
 }
 
 class PageServiceOrder extends StatefulWidget {
@@ -65,11 +66,11 @@ class PageServiceOrder extends StatefulWidget {
 }
 
 class _PageServiceOrder extends State<PageServiceOrder> {
-
   List<ListItem> items = List<ListItem>.generate(
-    10, (i) => MessageItem("Customer $i", "Tipe Kerusakan : $i", "Model Barang : $i", "Nomor Referensi : $i"),
+    12,
+    (i) => MessageItem(
+        "Nomor Referensi : $i", "Tanngal SO : 26-08-2020", "Tipe Kerusakan : $i", "Model Barang : $i", "Customer : $i"),
   );
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +80,15 @@ class _PageServiceOrder extends State<PageServiceOrder> {
   }
 
   Widget _body() {
-    return Container(
-      child: Stack(
-        children: [
-          _header(),
-          _listingOrder(),
-        ],
+    return WillPopScope(
+      onWillPop: () => onWillPop(),
+      child: Container(
+        child: Stack(
+          children: [
+            _header(),
+            _listingOrder(),
+          ],
+        ),
       ),
     );
   }
@@ -116,6 +120,7 @@ class _PageServiceOrder extends State<PageServiceOrder> {
                     ),
                   ),
                 ),
+                Icon(Icons.history, color: Colors.white),
               ],
             ),
           ),
@@ -124,7 +129,7 @@ class _PageServiceOrder extends State<PageServiceOrder> {
     );
   }
 
-  Widget _listingOrder(){
+  Widget _listingOrder() {
     return Column(
       children: [
         SizedBox(height: MediaQuery.of(context).size.height / 7),
@@ -146,24 +151,24 @@ class _PageServiceOrder extends State<PageServiceOrder> {
                     title: item.buildTitle(context),
                     subtitle: item.buildSubtitle(context),
                     isThreeLine: true,
-                    onTap: ()=> navigate(context, PageServiceOrderDetail(items[index], items.indexOf(items[index]))),
+                    onTap: () => navigate(context, PageServiceOrderDetail(items[index], items.indexOf(items[index]))),
                     trailing: Container(
                       width: 70,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(items.indexOf(items[index]) % 3 == 0 ? Icons.watch_later : Icons.warning,
-                              color: items.indexOf(items[index]) % 3 == 0 ? Colors.orangeAccent : Colors.red,
+                          Icon(items.indexOf(items[index]) % 2 == 0 ? Icons.watch_later : Icons.warning,
+                              color: items.indexOf(items[index]) % 2 == 0 ? Colors.orangeAccent : Colors.red,
                               semanticLabel: items.indexOf(items[index]) % 3 == 0 ? "Selesai" : "Belum Selesai"),
                           SizedBox(width: 10),
                           GestureDetector(
                             onTap: () {},
-                            child: Icon(Icons.phone, color: items.indexOf(items[index]) % 2 == 0 ? Colors.green : Colors.red),
+                            child: Icon(items.indexOf(items[index]) % 2 == 0 ? Icons.phone : items.indexOf(items[index]) % 3 ==0 ? Icons.phone : Icons.phone_missed,
+                                color: items.indexOf(items[index]) % 2 == 0 ? Colors.green : Colors.red),
                           ),
                         ],
                       ),
-                    )
-                );
+                    ));
               },
             ),
           ),

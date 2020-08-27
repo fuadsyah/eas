@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:eas/utils/utils.dart';
 import 'package:eas/views/pageOnDuty.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +23,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
   TextEditingController customerPhone = TextEditingController();
   DateTime selectedDate = DateTime.now();
   bool isSetDateAppointment = false;
-  bool hasCall = false;
+  bool wasCall = false;
 
   List<PhoneCallEvent> _phoneEvents;
 
@@ -123,24 +122,35 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(widget.data.reffNumber, style: TextStyle(fontFamily: 'elux', color: mainColor)),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(180), color: widget.index % 3 == 0 ? Colors.orange : Colors.red),
-                      child: Text(
-                        widget.index % 3 == 0 ? 'Ditunda' : 'Belum Dikerjakan',
-                        style: TextStyle(fontFamily: 'elux', color: Colors.white, fontSize: 12),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(widget.data.soDate),
+                          Text(widget.data.reffNumber, style: TextStyle(fontFamily: 'elux', color: mainColor)),
+                          widget.index % 3 == 0
+                              ? Text('Alasan Ditunda : Alasan $index', style: TextStyle(fontFamily: 'elux', color: mainColor))
+                              : SizedBox.shrink(),
+                        ],
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 40,),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(180), color: widget.index % 2 == 0 ? Colors.orange : Colors.red),
+                        child: Text(
+                          widget.index % 2 == 0 ? 'Ditunda' :  widget.index % 3 == 0 ? 'Belum Dikerjakan' : 'Pelanggan belum angkat telepon',
+                          style: TextStyle(fontFamily: 'elux', color: Colors.white, fontSize: 12),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                widget.index % 3 == 0
-                    ? Text('Alasan Ditunda : Alasan $index', style: TextStyle(fontFamily: 'elux', color: mainColor))
-                    : SizedBox.shrink(),
                 Divider(color: mainColor, height: 40, thickness: 1),
                 Text('Infomasi Pelanggan',
                     style: TextStyle(fontFamily: 'elux', color: mainColor, fontWeight: FontWeight.bold, fontSize: 16)),
@@ -197,6 +207,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
                           children: [
                             Expanded(
                               child: GestureDetector(
+                                onLongPress: ()=> _confirmCallIsAnswer(),
                                 onTap: () => _onCallCustomer(),
                                 child: Column(
                                   children: [
@@ -214,7 +225,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
                                 ),
                               ),
                             ),
-                            if (hasCall == true)
+                            if (wasCall == true)
 //                            if (_completedCalls.isNotEmpty)
 //                              if (_completedCalls.first.events.toString().contains('status: disconnected'))
                               Expanded(
@@ -288,11 +299,17 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
   }
 
   void _onCallCustomer() async {
+    setState(() {
+      wasCall = false;
+    });
+
     FlutterPhoneState.startPhoneCall(customerPhone.text);
+
     Future.delayed(
-        Duration(seconds: 2),
+        Duration(seconds: 3),
         () => setState(() {
-              hasCall = true;
+              _confirmCallIsAnswer();
+//              confirmCallIsAnswer = true;
             }));
   }
 
@@ -303,7 +320,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
       builder: (context) {
         return CupertinoAlertDialog(
           content: Container(
-            height: 200,
+            height: 250,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: CupertinoDatePicker(
@@ -315,8 +332,9 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
                 },
                 minimumDate: DateTime.now(),
                 use24hFormat: true,
-                minuteInterval: 15,
-                initialDateTime: DateTime.now().add(Duration(minutes: 15 - DateTime.now().minute % 15)),
+//                minuteInterval: 15,
+//                initialDateTime: DateTime.now().add(Duration(minutes: 15 - DateTime.now().minute % 15)),
+                initialDateTime: DateTime.now(),
                 mode: CupertinoDatePickerMode.dateAndTime,
               ),
             ),
@@ -351,7 +369,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Anda akan mengunjungi pelanggan An. ' + widget.data.customerName,
+                  'Anda akan mengunjungi pelanggan An. ' + widget.data.soDate,
                   style: TextStyle(fontFamily: 'Elux', fontSize: 14),
                   textAlign: TextAlign.start,
                 ),
@@ -420,5 +438,38 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
         );
       },
     );
+  }
+
+  void _confirmCallIsAnswer() {
+    showCupertinoDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: CupertinoActionSheet(
+                title: Text('Apakah Pelanggan bisa di hubungi?', style: TextStyle(fontFamily: 'elux', color: mainColor)),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text('Ya', style: TextStyle(fontFamily: 'elux', color: mainColor)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        wasCall = true;
+                      });
+                    },
+                  ),
+                  CupertinoDialogAction(
+                      child: Text('Tidak', style: TextStyle(fontFamily: 'elux', color: Colors.red)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

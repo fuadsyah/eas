@@ -78,6 +78,7 @@ class _PageCalculateCost extends State<PageCalculateCost> {
               physics: BouncingScrollPhysics(),
               children: [
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
@@ -88,6 +89,7 @@ class _PageCalculateCost extends State<PageCalculateCost> {
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
@@ -98,6 +100,7 @@ class _PageCalculateCost extends State<PageCalculateCost> {
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
@@ -108,6 +111,7 @@ class _PageCalculateCost extends State<PageCalculateCost> {
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
@@ -118,6 +122,7 @@ class _PageCalculateCost extends State<PageCalculateCost> {
                       labelStyle: TextStyle(fontFamily: 'elux', color: mainColor)),
                 ),
                 TextField(
+                  enabled: false,
                   maxLines: null,
                   style: TextStyle(fontFamily: 'elux'),
                   textInputAction: TextInputAction.next,
