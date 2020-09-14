@@ -58,6 +58,7 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
         'Gedung Mandiri, Jl. RS. Fatmawati Raya No.75, RT.6/RW.5, Cipete Utara, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12150';
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: _body(),
     );
   }
@@ -79,29 +80,14 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
         color: mainColor,
       ),
       padding: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Informasi Service Order',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'elux',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      child: Text(
+        'Informasi Service Order',
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: 'elux',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -121,35 +107,38 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
             child: ListView(
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
+              addAutomaticKeepAlives: true,
               children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(widget.data.soDate),
-                          Text(widget.data.reffNumber, style: TextStyle(fontFamily: 'elux', color: mainColor)),
-                          widget.index % 3 == 0
-                              ? Text('Alasan Ditunda : Alasan $index', style: TextStyle(fontFamily: 'elux', color: mainColor))
-                              : SizedBox.shrink(),
-                        ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.data.soDate),
+                        Text(widget.data.reffNumber, style: TextStyle(fontFamily: 'elux', color: mainColor)),
+                        widget.index % 3 == 0
+                            ? Text('Alasan Ditunda : Alasan $index', style: TextStyle(fontFamily: 'elux', color: mainColor))
+                            : SizedBox.shrink(),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(180), color: widget.index % 2 == 0 ? Colors.orange : Colors.red),
+                      child: Text(
+                        widget.index % 2 == 0
+                            ? 'Ditunda'
+                            : widget.index % 3 == 0 ? 'Belum Dikerjakan' : 'Pelanggan belum angkat telepon',
+                        style: TextStyle(fontFamily: 'elux', color: Colors.white, fontSize: 12),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(width: 40,),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(180), color: widget.index % 2 == 0 ? Colors.orange : Colors.red),
-                        child: Text(
-                          widget.index % 2 == 0 ? 'Ditunda' :  widget.index % 3 == 0 ? 'Belum Dikerjakan' : 'Pelanggan belum angkat telepon',
-                          style: TextStyle(fontFamily: 'elux', color: Colors.white, fontSize: 12),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
                 Divider(color: mainColor, height: 40, thickness: 1),
                 Text('Infomasi Pelanggan',
@@ -201,94 +190,94 @@ class _PageServiceOrderDetailState extends State<PageServiceOrderDetail> {
                       style: TextStyle(fontFamily: 'elux', color: Colors.red)),
                 ),
                 SizedBox(height: 100),
-                isSetDateAppointment == false
+                isSetDateAppointment == false || widget.index % 2 == 0
                     ? Center(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onLongPress: ()=> _confirmCallIsAnswer(),
-                                onTap: () => _onCallCustomer(),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(180),
-                                      ),
-                                      child: Icon(Icons.phone, color: Colors.white, size: 30),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text('Hubungi Pelanggan', style: TextStyle(fontFamily: 'elux', color: mainColor)),
-                                  ],
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onLongPress: () => _confirmCallIsAnswer(),
+                          onTap: () => _onCallCustomer(),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(180),
                                 ),
+                                child: Icon(Icons.phone, color: Colors.white, size: 30),
                               ),
-                            ),
-                            if (wasCall == true)
+                              SizedBox(height: 10),
+                              Text('Hubungi Pelanggan', style: TextStyle(fontFamily: 'elux', color: mainColor)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (wasCall == true)
 //                            if (_completedCalls.isNotEmpty)
 //                              if (_completedCalls.first.events.toString().contains('status: disconnected'))
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () => _setScheduleModal(),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                        decoration: BoxDecoration(
-                                          color: mainColor,
-                                          borderRadius: BorderRadius.circular(180),
-                                        ),
-                                        child: Icon(Icons.today, color: Colors.white, size: 30),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text('Atur Jadwal', style: TextStyle(fontFamily: 'elux', color: mainColor)),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      )
-                    : GestureDetector(
-                        onTap: () => _reScheduleModal(),
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: mainColor),
-                            child: Row(
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => _setScheduleModal(),
+                            child: Column(
                               children: [
-                                Icon(Icons.today, color: Colors.white),
-                                SizedBox(width: 20),
-                                Expanded(
-                                  child: Container(
-                                    child: Text(
-                                      'Anda sudah melakukan konfirmasi jadwal bertemu pada tanggal ' +
-                                          DateFormat('dd-MM-yyyy').format(selectedDate) +
-                                          ' Jam ' +
-                                          DateFormat('HH:mm').format(selectedDate),
-                                      style: TextStyle(color: Colors.white, fontFamily: 'elux'),
-                                    ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    color: mainColor,
+                                    borderRadius: BorderRadius.circular(180),
                                   ),
+                                  child: Icon(Icons.today, color: Colors.white, size: 30),
                                 ),
+                                SizedBox(height: 10),
+                                Text('Atur Jadwal', style: TextStyle(fontFamily: 'elux', color: mainColor)),
                               ],
                             ),
                           ),
                         ),
+                    ],
+                  ),
+                )
+                    : GestureDetector(
+                  onTap: () => _reScheduleModal(),
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: mainColor),
+                      child: Row(
+                        children: [
+                          Icon(Icons.today, color: Colors.white),
+                          SizedBox(width: 20),
+                          Expanded(
+                            child: Container(
+                              child: Text(
+                                'Anda sudah melakukan konfirmasi jadwal bertemu pada tanggal ' +
+                                    DateFormat('dd-MM-yyyy').format(selectedDate) +
+                                    ' Jam ' +
+                                    DateFormat('HH:mm').format(selectedDate),
+                                style: TextStyle(color: Colors.white, fontFamily: 'elux'),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 30),
-                isSetDateAppointment == false
+                isSetDateAppointment == false || widget.index % 2 == 0
                     ? SizedBox.shrink()
                     : ConfirmationSlider(
-                        shadow: BoxShadow(color: Colors.transparent),
-                        backgroundColor: Colors.green,
-                        height: 60,
-                        text: 'Geser untuk memulai',
-                        foregroundColor: Colors.white,
-                        iconColor: mainColor,
-                        textStyle: TextStyle(fontFamily: 'elux', color: Colors.white),
-                        onConfirmation: () => replaceRemoveNavigate(context, PageOnDuty()),
-                      ),
+                  shadow: BoxShadow(color: Colors.transparent),
+                  backgroundColor: Colors.green,
+                  height: 60,
+                  text: 'Geser untuk memulai',
+                  foregroundColor: Colors.white,
+                  iconColor: mainColor,
+                  textStyle: TextStyle(fontFamily: 'elux', color: Colors.white),
+                  onConfirmation: () => replaceRemoveNavigate(context, PageOnDuty()),
+                ),
                 SizedBox(height: 20),
               ],
             ),

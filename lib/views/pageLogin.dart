@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 
 import 'pageHome.dart';
 
-class PageLogin extends StatefulWidget{
-
+class PageLogin extends StatefulWidget {
   @override
-  _PageLoginState createState()=> _PageLoginState();
+  _PageLoginState createState() => _PageLoginState();
 }
 
-class _PageLoginState extends State<PageLogin>{
-
+class _PageLoginState extends State<PageLogin> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool obscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +124,7 @@ class _PageLoginState extends State<PageLogin>{
                   ),
                   SizedBox(height: 20),
                   TextField(
+                    obscureText: obscure,
                     controller: password,
                     style: TextStyle(fontFamily: 'elux'),
                     decoration: InputDecoration(
@@ -132,6 +132,15 @@ class _PageLoginState extends State<PageLogin>{
                       prefixIcon: Icon(
                         Icons.vpn_key,
                         color: mainColor,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.remove_red_eye),
+                        color: obscure ? mainColor : Colors.green,
+                        onPressed: () {
+                          setState(() {
+                            obscure = !obscure;
+                          });
+                        },
                       ),
                       focusColor: mainColor,
                       fillColor: mainColor,
